@@ -2,168 +2,168 @@
 const umkmData = [
     {
         id: 1,
-        name: "Warung Makan Pak Dodok",
+        name: "Warung Makan Bu Dodok",
         category: "Kuliner",
-        address: "Jl. Barito (Samping SD 02 Rejosari 02), Rejosari",
-        rw: "RW 05",
-        rt: "RT 02",
-        lat: -6.9839329,
-        lng: 110.4399673,
-        description: "Warung makan sederhana dengan menu masakan rumahan yang lezat"
+        address: "Jl. Barito (Samping SD N 02 Rejosari), Rejosari, Semarang Timur",
+        rw: "RW 01",
+        rt: "RT 03",
+        lat: -6.983956,
+        lng: 110.439942,
+        description: "Warung makan Sederhana dengan menu masakan khas rumahan yang lezat"
     },
     {
         id: 2,
-        name: "Toko Kelontong Pak Budi",
-        category: "Retail",
-        address: "Jl. Gajahmada No. 28, Gayamsari",
+        name: "Warung Jamu Nyoya Songo",
+        category: "Kuliner",
+        address: "Jl. Barito, Rejosari, Semarang Timur",
         rw: "RW 02",
         rt: "RT 05",
-        lat: -6.9819491,
-        lng: 110.4406150,
-        description: "Menyediakan kebutuhan sehari-hari lengkap"
+        lat: -6.9837869,
+        lng: 110.4399519,
+        description: "Minuman herbal tradisional yang diformulasikan khusus untuk mendukung kesehatan dan kebugaran remaja putri"
     },
     {
         id: 3,
-        name: "Salon Kecantikan Ayu",
+        name: "Depo Air Minum Moya Jabbal",
         category: "Jasa",
-        address: "Jl. Gajahmada No. 7, Gayamsari",
+        address: "Jl. Brantas Raya, Rejosari, Semarang Timur",
         rw: "RW 03",
         rt: "RT 02",
-        lat: -6.9829491,
-        lng: 110.4386150,
-        description: "Layanan potong rambut dan perawatan kecantikan"
+        lat: -6.9831931,
+        lng: 110.4398127,
+        description: "Usaha pengisian ulang air minum yang menyediakan air galon berkualitas, higienis, dan terjamin kesegarannya"
     },
     {
         id: 4,
-        name: "Bengkel Motor Jaya",
-        category: "Otomotif",
-        address: "Jl. Gajahmada No. 12, Gayamsari",
+        name: "Gule & Tongseng Sapi Mbak Eny",
+        category: "Kuliner",
+        address: "Jl. Kridangga Raya, Rejosari, Semarang Timur",
         rw: "RW 01",
         rt: "RT 04",
-        lat: -6.9799491,
-        lng: 110.4376150,
+        lat: -6.981625,
+        lng: 110.439714,
         description: "Service dan reparasi sepeda motor"
     },
     {
         id: 5,
-        name: "Laundry Express",
-        category: "Jasa",
-        address: "Jl. Gajahmada No. 21, Gayamsari",
+        name: "Warung Kelontong Sumber Rejeki",
+        category: "Retail",
+        address: "Jl. Rejosari VIII No.39, Rejosari, Semarang Timur",
         rw: "RW 04",
         rt: "RT 01",
-        lat: -6.9839491,
-        lng: 110.4416150,
-        description: "Layanan cuci dan setrika kilat"
+        lat: -6.981521963064281,
+        lng: 110.43980351160428,
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
     },
     {
         id: 6,
-        name: "Bakery Gayamsari",
-        category: "Kuliner",
-        address: "Jl. Gajahmada No. 33, Gayamsari",
+        name: "Warung Kelontong",
+        category: "Retail",
+        address: "Jl. Rejosari VIII, Rejosari, Semarang Timur",
         rw: "RW 02",
         rt: "RT 06",
-        lat: -6.9789491,
-        lng: 110.4400150,
-        description: "Roti dan kue segar setiap hari"
+        lat: -6.9817914,
+        lng: 110.4381641,
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
     },
     {
         id: 7,
-        name: "Fotocopy & Print Cepat",
-        category: "Jasa",
-        address: "Jl. Gajahmada No. 45, Gayamsari",
+        name: "Warung Makan Ayam Lunak Cabe Ijo",
+        category: "Kuliner",
+        address: "Jl. Rejosari V No.33, Rejosari, Semarang Timur",
         rw: "RW 03",
         rt: "RT 03",
-        lat: -6.9809491,
-        lng: 110.4410150,
-        description: "Layanan fotocopy, print, dan jilid"
+        lat: -6.9808250,
+        lng: 110.4374721,
+        description: "Ayam lunak yang dimasak hingga empuk dan disiram sambal cabe ijo khas racikan sendiri yang nikmat dan menggoda"
     },
     {
         id: 8,
-        name: "Toko Bangunan Maju",
+        name: "Toko Kelontong",
         category: "Retail",
-        address: "Jl. Gajahmada No. 8, Gayamsari",
+        address: "Jl. Rejosari I, Rejosari, Semarang Timur",
         rw: "RW 01",
         rt: "RT 02",
-        lat: -6.9779491,
-        lng: 110.4370150,
-        description: "Material bangunan dan alat konstruksi"
+        lat: -6.9785280,
+        lng: 110.4377501,
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
     },
     {
         id: 9,
-        name: "Warung Kopi Santai",
-        category: "Kuliner",
-        address: "Jl. Gajahmada No. 19, Gayamsari",
+        name: "Asdha Net",
+        category: "Jasa",
+        address: "Jl. Tirtoyoso Tengah No.22, Rejosari, Semarang Timur",
         rw: "RW 04",
         rt: "RT 05",
-        lat: -6.9849491,
-        lng: 110.4390150,
-        description: "Kopi premium dan camilan ringan"
+        lat: -6.9779117,
+        lng: 110.4403387,
+        description: "Konter pulsa dan layanan digital yang melayani penjualan pulsa, paket data, token listrik, serta berbagai kebutuhan komunikasi lainnya"
     },
     {
         id: 10,
-        name: "Penjahit Bu Rina",
-        category: "Jasa",
-        address: "Jl. Gajahmada No. 14, Gayamsari",
+        name: "Baron Motor",
+        category: "Otomotif",
+        address: "Jl. Tirtoyoso IV No.2, Rejosari, Semarang Timur",
         rw: "RW 02",
         rt: "RT 04",
-        lat: -6.9819491,
-        lng: 110.4420150,
-        description: "Jahit pakaian dan reparasi"
+        lat: -6.9782498,
+        lng: 110.4394191,
+        description: "Bengkel Motor yang melayani servis injeksi, engine tuning, suku cadang dan masih banyak lagi"
     },
     {
         id: 11,
-        name: "Toko Elektronik Canggih",
-        category: "Retail",
-        address: "Jl. Gajahmada No. 27, Gayamsari",
+        name: "Tin Salon Kecantikan",
+        category: "Jasa",
+        address: "Jl. Kanalsari Tengah, Rejosari, Semarang Timur",
         rw: "RW 03",
         rt: "RT 01",
-        lat: -6.9799491,
-        lng: 110.4404150,
-        description: "Peralatan elektronik dan gadget"
+        lat: -6.9754480,
+        lng: 110.4381558,
+        description: "Tempat perawatan rambut dan tubuh yang menghadirkan layanan lengkap mulai dari potong rambut, creambath, smoothing, coloring, hingga perawatan wajah dan make-up"
     },
     {
         id: 12,
-        name: "Es Campur Bu Yanti",
+        name: "Es Pak Ndut Gang Pinggir",
         category: "Kuliner",
-        address: "Jl. Gajahmada No. 36, Gayamsari",
+        address: "Jl. Bugangan VII, Rejosari, Semarang Timur",
         rw: "RW 01",
         rt: "RT 01",
-        lat: -6.9829491,
-        lng: 110.4380150,
+        lat: -6.9754893661437105,
+        lng:  110.43820057664871,
         description: "Es campur dan minuman segar"
     },
     {
         id: 13,
-        name: "Apotek Sehat",
-        category: "Kesehatan",
-        address: "Jl. Gajahmada No. 11, Gayamsari",
+        name: "TB Jaya Baru",
+        category: "Retail",
+        address: "Jl. RA. Kartini, Rejosari, Semarang Timur",
         rw: "RW 04",
         rt: "RT 02",
-        lat: -6.9859491,
-        lng: 110.4400150,
-        description: "Obat-obatan dan alat kesehatan"
+        lat: -6.985408795601665, 
+        lng: 110.43806539334629,
+        description: "Menyediakan berbagai kebutuhan material konstruksi dan renovasi, mulai dari semen, pasir, batu bata, besi, cat, hingga peralatan pertukangan"
     },
     {
         id: 14,
-        name: "Barbershop Modern",
-        category: "Jasa",
-        address: "Jl. Gajahmada No. 22, Gayamsari",
+        name: "Herry Kopling",
+        category: "Otomotif",
+        address: "Jl. RA. Kartini (Samping jembatan kartini), Rejosari, Semarang Timur",
         rw: "RW 02",
         rt: "RT 03",
-        lat: -6.9789491,
-        lng: 110.4366150,
-        description: "Potong rambut pria modern"
+        lat: -6.985552812568943,
+        lng: 110.43931596649006,
+        description: "Bengkel spesialis kopling dan transmisi yang melayani perbaikan, servis, dan penggantian komponen kopling untuk berbagai jenis kendaraan, terutama mobil manual"
     },
     {
         id: 15,
-        name: "Toko Bunga Indah",
-        category: "Retail",
-        address: "Jl. Gajahmada No. 9, Gayamsari",
+        name: "Point Box",
+        category: "Jasa",
+        address: "Jl. Barito Raya (Depan Pompa Air) No.3, Rejosari, Semarang Timur",
         rw: "RW 03",
         rt: "RT 04",
-        lat: -6.9839491,
-        lng: 110.4426150,
-        description: "Bunga segar dan tanaman hias"
+        lat: -6.985466953433562, 
+        lng: 110.4397471315938,
+        description: "Konter serba ada yang menyediakan layanan isi ulang pulsa, paket data, voucher game, token listrik, dan pembayaran digital lainnya. "
     }
 ];
 
@@ -179,7 +179,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const categoryIcons = {
     'Kuliner': '🍽️',
     'Retail': '🏪',
-    'Jasa': '🔧',
+    'Jasa': '🏃🏼',
     'Otomotif': '🚗',
     'Kesehatan': '🏥'
 };
@@ -211,7 +211,6 @@ function createCustomMarker(umkm) {
             <h3>${umkm.name}</h3>
             <div class="category" style="background-color: ${color};">${umkm.category}</div>
             <p><strong>📍 Alamat:</strong> ${umkm.address}</p>
-            <p><strong>🏘️ Wilayah:</strong> ${umkm.rw} ${umkm.rt}</p>
             <p><strong>ℹ️ Deskripsi:</strong> ${umkm.description}</p>
             <div style="margin-top: 10px; text-align: center;">
                 <button onclick="showNavigationOptions(${umkm.lat}, ${umkm.lng}, '${umkm.name}')" 
@@ -318,7 +317,6 @@ function generateUmkmList(data = umkmData) {
                 <h3>${umkm.name}</h3>
                 <div class="category" style="background-color: ${color};">${umkm.category}</div>
                 <div class="address">📍 ${umkm.address}</div>
-                <div class="rw">🏘️ ${umkm.rw} ${umkm.rt}</div>
             `;
 
             card.addEventListener('click', () => {
@@ -625,36 +623,74 @@ function showSimpleRoute(destLat, destLng, umkmName, startLat, startLng) {
     });
 }
 
+// Loading screen functionality
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainApp = document.getElementById('mainApp');
+    
+    if (loadingScreen && mainApp) {
+        loadingScreen.classList.add('fade-out');
+        
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            mainApp.style.display = 'block';
+            
+            // Force map resize after showing main app
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 100);
+        }, 800);
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the list
-    generateUmkmList();
+    // Show loading screen for minimum 3 seconds
+    const minLoadTime = 3000;
+    const startTime = Date.now();
+    
+    // Initialize app components
+    function initializeApp() {
+        // Initialize the list
+        generateUmkmList();
 
-    // Initialize search functionality
-    initializeSearch();
+        // Initialize search functionality
+        initializeSearch();
 
-    // Update bottom info
-    updateBottomInfo();
+        // Update bottom info
+        updateBottomInfo();
 
-    // Add map click event to close popups
-    map.on('click', function() {
-        map.closePopup();
-    });
+        // Add map click event to close popups
+        map.on('click', function() {
+            map.closePopup();
+        });
 
-    // Force map resize after page load
-    setTimeout(function() {
-        map.invalidateSize();
-    }, 500);
+        // Force map resize after page load
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 500);
 
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        const sideMenu = document.getElementById('sideMenu');
-        const hamburger = document.querySelector('.hamburger');
-        
-        if (!sideMenu.contains(e.target) && !hamburger.contains(e.target)) {
-            closeMenu();
-        }
-    });
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const sideMenu = document.getElementById('sideMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!sideMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+    }
+    
+    // Initialize app immediately
+    initializeApp();
+    
+    // Hide loading screen after minimum time
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+    
+    setTimeout(() => {
+        hideLoadingScreen();
+    }, remainingTime);
 });
 
 // Handle window resize to refresh map
