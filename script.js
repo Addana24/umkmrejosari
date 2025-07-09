@@ -2,14 +2,14 @@
 const umkmData = [
     {
         id: 1,
-        name: "Warung Makan Bu Sari",
+        name: "Warung Makan Pak Dodok",
         category: "Kuliner",
-        address: "Jl. Gajahmada No. 15, Gayamsari",
-        rw: "RW 01",
-        rt: "RT 03",
-        lat: -6.9809491,
-        lng: 110.4396150,
-        description: "Warung makan dengan menu masakan rumahan yang lezat"
+        address: "Jl. Barito (Samping SD 02 Rejosari 02), Rejosari",
+        rw: "RW 05",
+        rt: "RT 02",
+        lat: -6.9839329,
+        lng: 110.4399673,
+        description: "Warung makan sederhana dengan menu masakan rumahan yang lezat"
     },
     {
         id: 2,
@@ -272,41 +272,88 @@ umkmData.forEach(umkm => {
     markers[umkm.id] = createCustomMarker(umkm);
 });
 
-// Generate UMKM list
+// Generate UMKM list with category grouping
 function generateUmkmList(data = umkmData) {
     const umkmList = document.getElementById('umkmList');
     umkmList.innerHTML = '';
 
-    data.forEach(umkm => {
-        const color = categoryColors[umkm.category] || '#667eea';
-        const card = document.createElement('div');
-        card.className = 'umkm-card';
-        card.style.borderLeftColor = color;
-        card.innerHTML = `
-            <h3>${umkm.name}</h3>
-            <div class="category" style="background-color: ${color};">${umkm.category}</div>
-            <div class="address">📍 ${umkm.address}</div>
-            <div class="rw">🏘️ ${umkm.rw} ${umkm.rt}</div>
-        `;
+    // Group data by category
+    const groupedData = data.reduce((acc, umkm) => {
+        if (!acc[umkm.category]) {
+            acc[umkm.category] = [];
+        }
+        acc[umkm.category].push(umkm);
+        return acc;
+    }, {});
 
-        card.addEventListener('click', () => {
-            // Zoom ke lokasi UMKM dengan animasi smooth
-            map.setView([umkm.lat, umkm.lng], 18, {
-                animate: true,
-                duration: 1.0
+    // Sort categories by name
+    const sortedCategories = Object.keys(groupedData).sort();
+
+    sortedCategories.forEach(category => {
+        // Create category header
+        const categoryHeader = document.createElement('div');
+        categoryHeader.className = 'category-header';
+        const icon = categoryIcons[category] || '📍';
+        const color = categoryColors[category] || '#ffc107';
+        categoryHeader.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px; padding: 15px 10px 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 10px;">
+                <div style="background-color: ${color}; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">${icon}</div>
+                <div>
+                    <h4 style="color: white; margin: 0; font-size: 16px;">${category}</h4>
+                    <small style="color: rgba(255, 255, 255, 0.7);">${groupedData[category].length} UMKM</small>
+                </div>
+            </div>
+        `;
+        umkmList.appendChild(categoryHeader);
+
+        // Add UMKM cards for this category
+        groupedData[category].forEach(umkm => {
+            const color = categoryColors[umkm.category] || '#ffc107';
+            const card = document.createElement('div');
+            card.className = 'umkm-card';
+            card.style.marginLeft = '15px';
+            card.style.marginBottom = '8px';
+            card.style.borderLeftColor = color;
+            card.innerHTML = `
+                <h3>${umkm.name}</h3>
+                <div class="category" style="background-color: ${color};">${umkm.category}</div>
+                <div class="address">📍 ${umkm.address}</div>
+                <div class="rw">🏘️ ${umkm.rw} ${umkm.rt}</div>
+            `;
+
+            card.addEventListener('click', () => {
+                // Close menu first
+                closeMenu();
+                
+                // Zoom ke lokasi UMKM dengan animasi smooth
+                map.setView([umkm.lat, umkm.lng], 18, {
+                    animate: true,
+                    duration: 1.0
+                });
+
+                // Buka popup setelah delay singkat untuk animasi
+                setTimeout(() => {
+                    markers[umkm.id].openPopup();
+                }, 500);
             });
 
-            // Buka popup setelah delay singkat untuk animasi
-            setTimeout(() => {
-                markers[umkm.id].openPopup();
-            }, 500);
+            umkmList.appendChild(card);
         });
 
-        umkmList.appendChild(card);
+        // Add spacing between categories
+        if (category !== sortedCategories[sortedCategories.length - 1]) {
+            const spacer = document.createElement('div');
+            spacer.style.height = '15px';
+            umkmList.appendChild(spacer);
+        }
     });
 
     // Update total count
-    document.getElementById('totalUmkm').textContent = data.length;
+    const totalElements = document.querySelectorAll('#totalUmkm');
+    totalElements.forEach(el => el.textContent = data.length);
+    
+    // Update bottom info
+    updateBottomInfo();
 }
 
 // Search functionality
@@ -315,7 +362,7 @@ function initializeSearch() {
     if (searchInput) {
         searchInput.addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            const filteredData = umkmData.filter(umkm => 
+            const filteredData = umkmData.filter(umkm =>
                 umkm.name.toLowerCase().includes(searchTerm) ||
                 umkm.category.toLowerCase().includes(searchTerm) ||
                 umkm.address.toLowerCase().includes(searchTerm) ||
@@ -490,10 +537,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radius of the Earth in kilometers
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 }
 
@@ -501,7 +547,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 // Open Google Maps for navigation
 function openGoogleMaps(destLat, destLng, umkmName) {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${destLat},${destLng}&destination_place_id=${encodeURIComponent(umkmName)}`;
+    const url = `https://www.google.com/maps/search/?api=1&query=${destLat},${destLng}`;
     window.open(url, '_blank');
 }
 
@@ -521,7 +567,7 @@ function showSimpleRoute(destLat, destLng, umkmName, startLat, startLng) {
 
     // Create simple polyline route
     const routeLine = L.polyline([
-        [startLat, startLng], 
+        [startLat, startLng],
         [destLat, destLng]
     ], {
         color: '#e74c3c',
@@ -573,7 +619,7 @@ function showSimpleRoute(destLat, destLng, umkmName, startLat, startLng) {
 
     // Fit map to show the route
     const bounds = L.latLngBounds([[startLat, startLng], [destLat, destLng]]);
-    map.fitBounds(bounds, { 
+    map.fitBounds(bounds, {
         padding: [40, 40],
         maxZoom: 15
     });
@@ -587,6 +633,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize search functionality
     initializeSearch();
 
+    // Update bottom info
+    updateBottomInfo();
+
     // Add map click event to close popups
     map.on('click', function() {
         map.closePopup();
@@ -596,6 +645,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
         map.invalidateSize();
     }, 500);
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const sideMenu = document.getElementById('sideMenu');
+        const hamburger = document.querySelector('.hamburger');
+        
+        if (!sideMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            closeMenu();
+        }
+    });
 });
 
 // Handle window resize to refresh map
@@ -605,6 +664,38 @@ window.addEventListener('resize', function() {
     }, 100);
 });
 
+// Mobile navigation functions
+function toggleMenu() {
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    if (sideMenu.classList.contains('open')) {
+        closeMenu();
+    } else {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('show');
+    }
+}
+
+function closeMenu() {
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    sideMenu.classList.remove('open');
+    menuOverlay.classList.remove('show');
+}
+
+// Tab functions removed - keeping only map view
+
+// Update total UMKM count in bottom info
+function updateBottomInfo() {
+    const count = umkmData.length;
+    const bottomInfo = document.querySelector('.issues-count');
+    if (bottomInfo) {
+        bottomInfo.innerHTML = `There are <span class="issues-count">${count} UMKM</span> around you (100m)`;
+    }
+}
+
 // Make functions available globally
 window.toggleUMKMList = toggleUMKMList;
 window.showStats = showStats;
@@ -612,3 +703,220 @@ window.filterByCategory = filterByCategory;
 window.showNavigationOptions = showNavigationOptions;
 window.openGoogleMaps = openGoogleMaps;
 window.openWaze = openWaze;
+window.startLocationPicker = startLocationPicker;
+window.toggleMenu = toggleMenu;
+window.closeMenu = closeMenu;
+// Removed showMap, showLive, showList functions
+
+// ===== KODE JAVASCRIPT BARU UNTUK FITUR PENDAFTARAN =====
+
+// Variabel untuk location picker
+let isPickingLocation = false;
+let locationPickerMarker = null;
+
+// Fungsi untuk memulai location picker
+function startLocationPicker() {
+    const modal = document.getElementById('registrationModal');
+    const selectBtn = document.getElementById('selectLocationBtn');
+    const locationStatus = document.getElementById('locationStatus');
+    const locationText = document.getElementById('locationText');
+    
+    if (!isPickingLocation) {
+        // Mulai picking location
+        isPickingLocation = true;
+        selectBtn.textContent = '❌ Batal Pilih Lokasi';
+        selectBtn.classList.add('picking');
+        
+        // Sembunyikan modal dan tampilkan status
+        modal.style.display = 'none';
+        locationStatus.style.display = 'block';
+        locationStatus.className = 'picking';
+        locationText.textContent = '📍 Klik pada peta untuk memilih lokasi UMKM Anda';
+        
+        // Tambahkan event listener untuk map click
+        map.on('click', onMapClickForLocation);
+        
+        // Ubah cursor peta
+        map.getContainer().style.cursor = 'crosshair';
+        
+    } else {
+        // Batal picking location
+        cancelLocationPicker();
+    }
+}
+
+// Fungsi untuk menangani klik pada peta saat picking location
+function onMapClickForLocation(e) {
+    if (!isPickingLocation) return;
+    
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+    
+    // Hapus marker sebelumnya jika ada
+    if (locationPickerMarker) {
+        map.removeLayer(locationPickerMarker);
+    }
+    
+    // Tambahkan marker baru
+    locationPickerMarker = L.marker([lat, lng], {
+        icon: L.divIcon({
+            html: '<div style="background-color: #e74c3c; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">📍</div>',
+            className: 'location-picker-marker',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        })
+    }).addTo(map);
+    
+    // Update form fields
+    document.getElementById('umkmLat').value = lat.toFixed(6);
+    document.getElementById('umkmLng').value = lng.toFixed(6);
+    
+    // Selesai picking location
+    finishLocationPicker(lat, lng);
+}
+
+// Fungsi untuk menyelesaikan location picker
+function finishLocationPicker(lat, lng) {
+    const modal = document.getElementById('registrationModal');
+    const selectBtn = document.getElementById('selectLocationBtn');
+    const locationStatus = document.getElementById('locationStatus');
+    const locationText = document.getElementById('locationText');
+    
+    isPickingLocation = false;
+    selectBtn.textContent = '✅ Lokasi Dipilih - Ubah Lokasi';
+    selectBtn.classList.remove('picking');
+    
+    // Tampilkan modal kembali dan update status
+    modal.style.display = 'flex';
+    locationStatus.className = 'success';
+    locationText.textContent = `✅ Lokasi berhasil dipilih: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+    
+    // Hapus event listener
+    map.off('click', onMapClickForLocation);
+    
+    // Kembalikan cursor normal
+    map.getContainer().style.cursor = '';
+}
+
+// Fungsi untuk membatalkan location picker
+function cancelLocationPicker() {
+    const modal = document.getElementById('registrationModal');
+    const selectBtn = document.getElementById('selectLocationBtn');
+    const locationStatus = document.getElementById('locationStatus');
+    
+    isPickingLocation = false;
+    selectBtn.textContent = '📍 Pilih Lokasi di Peta';
+    selectBtn.classList.remove('picking');
+    
+    // Tampilkan modal kembali dan sembunyikan status
+    modal.style.display = 'flex';
+    locationStatus.style.display = 'none';
+    
+    // Hapus marker jika ada
+    if (locationPickerMarker) {
+        map.removeLayer(locationPickerMarker);
+        locationPickerMarker = null;
+    }
+    
+    // Hapus event listener
+    map.off('click', onMapClickForLocation);
+    
+    // Kembalikan cursor normal
+    map.getContainer().style.cursor = '';
+    
+    // Clear form fields
+    document.getElementById('umkmLat').value = '';
+    document.getElementById('umkmLng').value = '';
+}
+
+// Ganti dengan URL Web App dari Google Apps Script Anda
+const googleWebAppUrl = 'https://script.google.com/macros/s/AKfycbwHaZx80oHq4-KKR1TK79W-Ze_XirfTXz3c2ImWzy4e5q9oF3abGSmsXJ_Z3ikG7d2t/exec';
+
+const modal = document.getElementById('registrationModal');
+const form = document.getElementById('umkmForm');
+const messageDiv = document.getElementById('formMessage');
+const submitBtn = document.getElementById('submitBtn');
+
+// Fungsi untuk membuka modal
+function openModal() {
+    modal.style.display = 'flex';
+}
+
+// Fungsi untuk menutup modal
+function closeModal() {
+    // Jika sedang picking location, batalkan dulu
+    if (isPickingLocation) {
+        cancelLocationPicker();
+    }
+    
+    modal.style.display = 'none';
+    messageDiv.textContent = ''; // Bersihkan pesan saat modal ditutup
+    
+    // Reset location status
+    const locationStatus = document.getElementById('locationStatus');
+    locationStatus.style.display = 'none';
+    
+    // Hapus marker location picker jika ada
+    if (locationPickerMarker) {
+        map.removeLayer(locationPickerMarker);
+        locationPickerMarker = null;
+    }
+}
+
+// Menutup modal jika user klik di luar area konten
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+// Fungsi untuk menangani pengiriman formulir
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mengirim...';
+    messageDiv.textContent = '';
+    messageDiv.style.color = '';
+
+    const formData = {
+        name: document.getElementById('umkmName').value,
+        category: document.getElementById('umkmCategory').value,
+        address: document.getElementById('umkmAddress').value,
+        rw: document.getElementById('umkmRW').value,
+        rt: document.getElementById('umkmRT').value,
+        lat: document.getElementById('umkmLat').value,
+        lng: document.getElementById('umkmLng').value,
+        description: document.getElementById('umkmDescription').value,
+    };
+
+    try {
+        const response = await fetch(googleWebAppUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Penting untuk request ke Google Apps Script dari browser
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            redirect: 'follow'
+        });
+
+        // Karena mode 'no-cors', kita tidak bisa membaca response secara langsung.
+        // Kita asumsikan sukses jika tidak ada network error.
+        messageDiv.textContent = 'Pendaftaran berhasil! Terima kasih. Data Anda akan segera muncul di peta setelah diverifikasi.';
+        messageDiv.style.color = 'green';
+        form.reset();
+
+        // Menutup modal setelah 5 detik
+        setTimeout(() => {
+            closeModal();
+        }, 5000);
+
+    } catch (error) {
+        console.error('Error:', error);
+        messageDiv.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+        messageDiv.style.color = 'red';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirim Pendaftaran';
+    }
+}
