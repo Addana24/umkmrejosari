@@ -1,469 +1,470 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peta UMKM Kelurahan Rejosari</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .container {
-            display: flex;
-            height: calc(100vh - 120px);
-            gap: 1rem;
-            padding: 1rem;
-        }
-
-        .sidebar {
-            width: 350px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-
-        .search-box {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .search-box::after {
-            content: '🔍';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .umkm-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .umkm-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-left: 4px solid #667eea;
-        }
-
-        .umkm-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .umkm-card h3 {
-            color: #2c3e50;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .umkm-card .category {
-            background: #667eea;
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .umkm-card .address {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .umkm-card .rw {
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .map-container {
-            flex: 1;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-
-        .stats {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .stats h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        .stats .number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .custom-popup .leaflet-popup-content-wrapper {
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .popup-content {
-            padding: 0.5rem;
-        }
-
-        .popup-content h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .popup-content .category {
-            background: #667eea;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .control-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .control-btn {
-            flex: 1;
-            padding: 0.7rem;
-            border: none;
-            border-radius: 8px;
-            background: #667eea;
-            color: white;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 70px;
-        }
-
-        .control-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-1px);
-        }
-
-        .control-btn.active {
-            background: #e74c3c;
-        }
-
-        .filter-section {
-            margin-bottom: 1rem;
-        }
-
-        .filter-section select {
-            width: 100%;
-            padding: 0.7rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        .stats-container {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .stat-card h4 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .stat-card .number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .route-info-popup {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
-            }
-
-            .header h1 {
-                font-size: 1.4rem;
-            }
-
-            .header p {
-                font-size: 0.8rem;
-            }
-
-            .container {
-                flex-direction: column;
-                height: calc(100vh - 120px);
-                padding: 0.5rem;
-                gap: 0.5rem;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 40vh;
-                overflow-y: auto;
-                padding: 1rem;
-                flex-shrink: 0;
-            }
-
-            .map-container {
-                flex: 1;
-                height: auto;
-                min-height: 50vh;
-                order: 2;
-            }
-
-            #map {
-                height: 100% !important;
-                min-height: 50vh !important;
-                width: 100% !important;
-            }
-
-            .control-buttons {
-                justify-content: space-between;
-            }
-
-            .control-btn {
-                font-size: 0.7rem;
-                padding: 0.5rem;
-            }
-
-            .stats {
-                padding: 0.7rem;
-                margin-bottom: 1rem;
-            }
-
-            .stats .number {
-                font-size: 1.5rem;
-            }
-
-            .search-box input {
-                padding: 10px 35px 10px 12px;
-                font-size: 0.9rem;
-            }
-
-            .umkm-card {
-                padding: 0.8rem;
-            }
-
-            .umkm-card h3 {
-                font-size: 1rem;
-            }
-
-            .umkm-card .category {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.6rem;
-            }
-
-            .umkm-card .address,
-            .umkm-card .rw {
-                font-size: 0.8rem;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 0.7rem;
-            }
-
-            .header h1 {
-                font-size: 1.2rem;
-            }
-
-            .container {
-                padding: 0.3rem;
-                height: calc(100vh - 100px);
-            }
-
-            .sidebar {
-                padding: 0.8rem;
-                max-height: 35vh;
-            }
-
-            .map-container {
-                flex: 1;
-                min-height: 55vh;
-            }
-
-            #map {
-                height: 100% !important;
-                min-height: 55vh !important;
-            }
-
-            .control-btn {
-                font-size: 0.6rem;
-                padding: 0.4rem;
-            }
-
-            .umkm-card {
-                padding: 0.6rem;
-            }
-
-            .umkm-card h3 {
-                font-size: 0.9rem;
-            }
-
-            .search-box input {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UMKM Rejosari</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a237e;
+      min-height: 100vh;
+      color: white;
+    }
+
+    .mobile-header {
+      background: linear-gradient(135deg, #3f51b5 0%, #1a237e 100%);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1000;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .notification-btn {
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .map-container {
+      height: calc(100vh - 70px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .bottom-info {
+      display: none;
+    }
+
+    .location-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .issues-count {
+      color: #ffc107;
+      font-weight: bold;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: linear-gradient(135deg, #3f51b5 0%, #1a237e 100%);
+      z-index: 2000;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .side-menu.open {
+      left: 0;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      display: none;
+    }
+
+    .menu-overlay.show {
+      display: block;
+    }
+
+    .menu-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-content {
+      padding: 20px;
+    }
+
+    .search-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 12px 20px;
+      color: white;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .search-box::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .category-filter {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+      color: white;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .umkm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: calc(100vh - 300px);
+      overflow-y: auto;
+    }
+
+    .umkm-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 4px solid #ffc107;
+    }
+
+    .umkm-card:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .umkm-card h3 {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .umkm-card .category {
+      background: #ffc107;
+      color: #1a237e;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .umkm-card .address {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .umkm-card .rw {
+      color: #ffc107;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .category-header {
+      margin-bottom: 10px;
+    }
+
+    .category-header h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #3f51b5 0%, #1a237e 100%);
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      color: white;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-content h2 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .modal-content p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    #umkmForm {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    #umkmForm input,
+    #umkmForm select,
+    #umkmForm textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    #umkmForm input::placeholder,
+    #umkmForm textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #umkmForm button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ffc107;
+      color: #1a237e;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #umkmForm button:hover {
+      background: #ffb300;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    #selectLocationBtn {
+      background: #4caf50 !important;
+      color: white !important;
+      margin-top: 10px;
+    }
+
+    #selectLocationBtn:hover {
+      background: #388e3c !important;
+    }
+
+    #selectLocationBtn.picking {
+      background: #f44336 !important;
+    }
+
+    #selectLocationBtn.picking:hover {
+      background: #d32f2f !important;
+    }
+
+    #locationStatus {
+      font-size: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    #locationStatus.success {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    #locationStatus.picking {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+      border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+
+    .stats-display {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .stats-display h3 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .stats-display .number {
+      font-size: 32px;
+      font-weight: bold;
+      color: #ffc107;
+    }
+
+    /* Remove blue background from Leaflet attribution */
+    .leaflet-control-attribution {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+
+    .leaflet-bottom {
+      background: transparent !important;
+    }
+
+    @media (max-width: 480px) {
+      .header-title {
+        font-size: 16px;
+      }
+
+      .map-container {
+        height: calc(100vh - 70px);
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="header">
-        <h1>🌍 Peta UMKM Kelurahan Rejosari 🗺️</h1>
-        <p>📍 Kota Semarang, Jawa Tengah - Temukan dan jelajahi Usaha Mikro Kecil dan Menengah di wilayah Anda </p>
+  <div class="mobile-header">
+    <div class="header-left">
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <div class="header-title">UMKM REJOSARI</div>
     </div>
+    <div class="notification-btn" onclick="openModal()">➕</div>
+  </div>
 
-    
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
 
-    <div class="container">
-        <div class="sidebar">
-            <div class="stats">
-                <h3>Total UMKM</h3>
-                <div class="number" id="totalUmkm">15</div>
-            </div>
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-            <div class="control-buttons">
-                <button class="control-btn" onclick="toggleUMKMList()">📋 List</button>
-                <button class="control-btn" onclick="showStats()">📊 Stats</button>
-            </div>
-
-            <div class="filter-section">
-                <select id="categoryFilter" onchange="filterByCategory()">
-                    <option value="">Semua Kategori</option>
-                    <option value="Kuliner">🍽️ Kuliner</option>
-                    <option value="Retail">🏪 Retail</option>
-                    <option value="Jasa">🔧 Jasa</option>
-                    <option value="Otomotif">🚗 Otomotif</option>
-                    <option value="Kesehatan">🏥 Kesehatan</option>
-                </select>
-            </div>
-
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Cari UMKM atau kategori...">
-            </div>
-
-            <div class="stats-container" id="statsContainer">
-                <div class="stat-card">
-                    <h4>Total UMKM</h4>
-                    <div class="number" id="totalUMKM">15</div>
-                </div>
-                <div class="stat-card">
-                    <h4>Total Kategori</h4>
-                    <div class="number" id="totalKategori">5</div>
-                </div>
-            </div>
-
-            <div class="umkm-list" id="umkmList">
-                <!-- UMKM cards will be generated here -->
-            </div>
-        </div>
-
-        <div class="map-container">
-            <div id="map"></div>
-        </div>
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-header">
+      <h2>🏪 Daftar UMKM</h2>
+      <p>Temukan UMKM di sekitar Anda</p>
     </div>
+    <div class="menu-content">
+      <div class="stats-display">
+        <h3>Total UMKM</h3>
+        <div class="number" id="totalUmkm">15</div>
+      </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
-    <script src="script.js"></script>
+      <input type="text" class="search-box" id="searchInput" placeholder="🔍 Cari UMKM atau kategori...">
+
+      <select class="category-filter" id="categoryFilter" onchange="filterByCategory()">
+        <option value="">Semua Kategori</option>
+        <option value="Kuliner">🍽️ Kuliner</option>
+        <option value="Retail">🏪 Retail</option>
+        <option value="Jasa">🔧 Jasa</option>
+        <option value="Otomotif">🚗 Otomotif</option>
+        <option value="Kesehatan">🏥 Kesehatan</option>
+      </select>
+
+      <div class="umkm-list" id="umkmList"></div>
+    </div>
+  </div>
+
+  <div id="registrationModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>📝 Daftarkan UMKM</h2>
+      <p>Daftarkan UMKM Anda untuk muncul di peta</p>
+      <form id="umkmForm" onsubmit="handleFormSubmit(event)">
+        <input type="text" id="umkmName" placeholder="Nama UMKM" required>
+        <select id="umkmCategory" required>
+          <option value="">Pilih Kategori...</option>
+          <option value="Kuliner">🍽️ Kuliner</option>
+          <option value="Retail">🏪 Retail</option>
+          <option value="Jasa">🔧 Jasa</option>
+          <option value="Otomotif">🚗 Otomotif</option>
+          <option value="Kesehatan">🏥 Kesehatan</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+        <input type="text" id="umkmAddress" placeholder="Alamat Lengkap" required>
+        <div class="form-row">
+          <input type="text" id="umkmRW" placeholder="RW 01" required>
+          <input type="text" id="umkmRT" placeholder="RT 01" required>
+        </div>
+        <div class="form-row">
+          <input type="text" id="umkmLat" placeholder="Latitude" readonly required>
+          <input type="text" id="umkmLng" placeholder="Longitude" readonly required>
+        </div>
+        <button type="button" id="selectLocationBtn" onclick="startLocationPicker()">
+          📍 Pilih Lokasi di Peta
+        </button>
+        <div id="locationStatus" style="display: none;">
+          <span id="locationText"></span>
+        </div>
+        <textarea id="umkmDescription" placeholder="Deskripsi UMKM Anda" rows="3" required></textarea>
+        <button type="submit" id="submitBtn">Kirim Pendaftaran</button>
+      </form>
+      <div id="formMessage" style="margin-top: 15px;"></div>
+    </div>
+  </div>
+
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
