@@ -42,7 +42,7 @@ const umkmData = [
         rt: "RT 04",
         lat: -6.981625,
         lng: 110.439714,
-        description: "Service dan reparasi sepeda motor"
+        description: "Warung makan khas Nusantara yang menyajikan hidangan gule dan tongseng sapi dengan cita rasa tradisional dan kuah rempah yang kaya"
     },
     {
         id: 5,
