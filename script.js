@@ -9,7 +9,9 @@ const umkmData = [
         rt: "RT 03",
         lat: -6.983956,
         lng: 110.439942,
-        description: "Warung makan Sederhana dengan menu masakan khas rumahan yang lezat"
+        description: "Warung makan Sederhana dengan menu masakan khas rumahan yang lezat",
+        hours: "10.00 - 21.00",
+        photo: "File/sederhana.jpg"
     },
     {
         id: 2,
@@ -20,7 +22,9 @@ const umkmData = [
         rt: "RT 05",
         lat: -6.9837869,
         lng: 110.4399519,
-        description: "Minuman herbal tradisional yang diformulasikan khusus untuk mendukung kesehatan dan kebugaran remaja putri"
+        description: "Minuman herbal tradisional yang diformulasikan khusus untuk mendukung kesehatan dan kebugaran remaja putri",
+        hours: "09.00 - 17.00",
+        photo:"File/jamu.jpg"
     },
     {
         id: 3,
@@ -31,7 +35,9 @@ const umkmData = [
         rt: "RT 02",
         lat: -6.9831931,
         lng: 110.4398127,
-        description: "Usaha pengisian ulang air minum yang menyediakan air galon berkualitas, higienis, dan terjamin kesegarannya"
+        description: "Usaha pengisian ulang air minum yang menyediakan air galon berkualitas, higienis, dan terjamin kesegarannya",
+        hours: "10.00 - 22.00",
+        photo: "File/depo.jpeg"
     },
     {
         id: 4,
@@ -42,7 +48,13 @@ const umkmData = [
         rt: "RT 04",
         lat: -6.981625,
         lng: 110.439714,
+<<<<<<< HEAD
         description: "Warung makan khas Nusantara yang menyajikan hidangan gule dan tongseng sapi dengan cita rasa tradisional dan kuah rempah yang kaya"
+=======
+        description: "Warung makan khas Nusantara yang menyajikan hidangan gule dan tongseng sapi dengan cita rasa tradisional dan kuah rempah yang kaya",
+        hours: "12.00 - 23.00",
+        photo:"File/gule.jpg"
+>>>>>>> 454ca4b (update ui/ux)
     },
     {
         id: 5,
@@ -53,7 +65,9 @@ const umkmData = [
         rt: "RT 01",
         lat: -6.981521963064281,
         lng: 110.43980351160428,
-        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur",
+        hours: "08.00 - 00.00",
+        photo: "File/wr.png"
     },
     {
         id: 6,
@@ -64,7 +78,9 @@ const umkmData = [
         rt: "RT 06",
         lat: -6.9817914,
         lng: 110.4381641,
-        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur",
+        hours: "24jam",
+        photo: "file/mdr.jpeg"
     },
     {
         id: 7,
@@ -75,7 +91,9 @@ const umkmData = [
         rt: "RT 03",
         lat: -6.9808250,
         lng: 110.4374721,
-        description: "Ayam lunak yang dimasak hingga empuk dan disiram sambal cabe ijo khas racikan sendiri yang nikmat dan menggoda"
+        description: "Ayam lunak yang dimasak hingga empuk dan disiram sambal cabe ijo khas racikan sendiri yang nikmat dan menggoda",
+        hours: "15.00 - 21.00",
+        photo: "file/lnk.png"
     },
     {
         id: 8,
@@ -86,7 +104,9 @@ const umkmData = [
         rt: "RT 02",
         lat: -6.9785280,
         lng: 110.4377501,
-        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur"
+        description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur",
+        hours: "24jam",
+        photo: "file/mdr.jpeg"
     },
     {
         id: 9,
@@ -97,7 +117,9 @@ const umkmData = [
         rt: "RT 05",
         lat: -6.9779117,
         lng: 110.4403387,
-        description: "Konter pulsa dan layanan digital yang melayani penjualan pulsa, paket data, token listrik, serta berbagai kebutuhan komunikasi lainnya"
+        description: "Konter pulsa dan layanan digital yang melayani penjualan pulsa, paket data, token listrik, serta berbagai kebutuhan komunikasi lainnya",
+        hours: "09.00 - 21.00",
+        photo: "file/asd.png"
     },
     {
         id: 10,
@@ -108,7 +130,9 @@ const umkmData = [
         rt: "RT 04",
         lat: -6.9782498,
         lng: 110.4394191,
-        description: "Bengkel Motor yang melayani servis injeksi, engine tuning, suku cadang dan masih banyak lagi"
+        description: "Bengkel Motor yang melayani servis injeksi, engine tuning, suku cadang dan masih banyak lagi",
+        hours: "19.00 - 16.30",
+        photo: "file/brn.jpeg"
     },
     {
         id: 11,
@@ -119,7 +143,9 @@ const umkmData = [
         rt: "RT 01",
         lat: -6.9754480,
         lng: 110.4381558,
-        description: "Tempat perawatan rambut dan tubuh yang menghadirkan layanan lengkap mulai dari potong rambut, creambath, smoothing, coloring, hingga perawatan wajah dan make-up"
+        description: "Tempat perawatan rambut dan tubuh yang menghadirkan layanan lengkap mulai dari potong rambut, creambath, smoothing, coloring, hingga perawatan wajah dan make-up",
+        hours: "11.00 - 18.00",
+        photo: "file/tin.jpeg"
     },
     {
         id: 12,
@@ -130,7 +156,9 @@ const umkmData = [
         rt: "RT 01",
         lat: -6.9754893661437105,
         lng:  110.43820057664871,
-        description: "Es campur dan minuman segar"
+        description: "Es campur dan minuman segar",
+        hours: "10.00 - 22.00",
+        photo: "file/ndt.png"
     },
     {
         id: 13,
@@ -141,7 +169,9 @@ const umkmData = [
         rt: "RT 02",
         lat: -6.985408795601665, 
         lng: 110.43806539334629,
-        description: "Menyediakan berbagai kebutuhan material konstruksi dan renovasi, mulai dari semen, pasir, batu bata, besi, cat, hingga peralatan pertukangan"
+        description: "Menyediakan berbagai kebutuhan material konstruksi dan renovasi, mulai dari semen, pasir, batu bata, besi, cat, hingga peralatan pertukangan",
+        hours: "08.00 - 17.00",
+        photo: "file/tb.png"
     },
     {
         id: 14,
@@ -152,7 +182,9 @@ const umkmData = [
         rt: "RT 03",
         lat: -6.985552812568943,
         lng: 110.43931596649006,
-        description: "Bengkel spesialis kopling dan transmisi yang melayani perbaikan, servis, dan penggantian komponen kopling untuk berbagai jenis kendaraan, terutama mobil manual"
+        description: "Bengkel spesialis kopling dan transmisi yang melayani perbaikan, servis, dan penggantian komponen kopling untuk berbagai jenis kendaraan, terutama mobil manual",
+        hours: "09.00 - 17.00",
+        photo: "file/hr.png"
     },
     {
         id: 15,
@@ -163,7 +195,9 @@ const umkmData = [
         rt: "RT 04",
         lat: -6.985466953433562, 
         lng: 110.4397471315938,
-        description: "Konter serba ada yang menyediakan layanan isi ulang pulsa, paket data, voucher game, token listrik, dan pembayaran digital lainnya. "
+        description: "Konter serba ada yang menyediakan layanan isi ulang pulsa, paket data, voucher game, token listrik, dan pembayaran digital lainnya. ",
+        hours: "08.00 - 22.00",
+        photo: "file/pj.jpeg"
     }
 ];
 
@@ -208,10 +242,14 @@ function createCustomMarker(umkm) {
 
     const popupContent = `
         <div class="popup-content">
+         <div style="text-align: center; margin-bottom: 10px;">
+                <img src="${umkm.photo}" alt="${umkm.name}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            </div>
             <h3>${umkm.name}</h3>
             <div class="category" style="background-color: ${color};">${umkm.category}</div>
             <p><strong>📍 Alamat:</strong> ${umkm.address}</p>
             <p><strong>ℹ️ Deskripsi:</strong> ${umkm.description}</p>
+             <p style="margin: 5px 0; font-size: 13px;"><strong>🕒 Jam Buka:</strong> ${umkm.hours}</p>
             <div style="margin-top: 10px; text-align: center;">
                 <button onclick="showNavigationOptions(${umkm.lat}, ${umkm.lng}, '${umkm.name}')" 
                         style="background: #4285f4; color: white; border: none; padding: 8px 15px; border-radius: 15px; font-size: 0.9rem; cursor: pointer;">
@@ -317,6 +355,7 @@ function generateUmkmList(data = umkmData) {
                 <h3>${umkm.name}</h3>
                 <div class="category" style="background-color: ${color};">${umkm.category}</div>
                 <div class="address">📍 ${umkm.address}</div>
+                <div class="hours" style="color: #ffc107; font-size: 12px; margin-top: 5px; font-weight: bold;">🕒 ${umkm.hours}</div>
             `;
 
             card.addEventListener('click', () => {
