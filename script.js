@@ -76,7 +76,7 @@ const umkmData = [
         lng: 110.4381641,
         description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur",
         hours: "24jam",
-        photo: "file/mdr.jpeg"
+        photo: "File/mdr.jpeg"
     },
     {
         id: 7,
@@ -89,7 +89,7 @@ const umkmData = [
         lng: 110.4374721,
         description: "Ayam lunak yang dimasak hingga empuk dan disiram sambal cabe ijo khas racikan sendiri yang nikmat dan menggoda",
         hours: "15.00 - 21.00",
-        photo: "file/lnk.png"
+        photo: "File/lnk.png"
     },
     {
         id: 8,
@@ -102,7 +102,7 @@ const umkmData = [
         lng: 110.4377501,
         description: "Toko serba ada yang menyediakan berbagai kebutuhan sehari-hari seperti sembako, makanan ringan, minuman, perlengkapan rumah tangga, hingga kebutuhan dapur",
         hours: "24jam",
-        photo: "file/mdr.jpeg"
+        photo: "File/mdr.jpeg"
     },
     {
         id: 9,
@@ -115,7 +115,7 @@ const umkmData = [
         lng: 110.4403387,
         description: "Konter pulsa dan layanan digital yang melayani penjualan pulsa, paket data, token listrik, serta berbagai kebutuhan komunikasi lainnya",
         hours: "09.00 - 21.00",
-        photo: "file/asd.png"
+        photo: "File/asd.png"
     },
     {
         id: 10,
@@ -128,7 +128,7 @@ const umkmData = [
         lng: 110.4394191,
         description: "Bengkel Motor yang melayani servis injeksi, engine tuning, suku cadang dan masih banyak lagi",
         hours: "19.00 - 16.30",
-        photo: "file/brn.jpeg"
+        photo: "File/brn.jpeg"
     },
     {
         id: 11,
@@ -141,7 +141,7 @@ const umkmData = [
         lng: 110.4381558,
         description: "Tempat perawatan rambut dan tubuh yang menghadirkan layanan lengkap mulai dari potong rambut, creambath, smoothing, coloring, hingga perawatan wajah dan make-up",
         hours: "11.00 - 18.00",
-        photo: "file/tin.jpeg"
+        photo: "File/tin.jpeg"
     },
     {
         id: 12,
@@ -154,7 +154,7 @@ const umkmData = [
         lng:  110.43820057664871,
         description: "Es campur dan minuman segar",
         hours: "10.00 - 22.00",
-        photo: "file/ndt.png"
+        photo: "File/ndt.png"
     },
     {
         id: 13,
@@ -167,7 +167,7 @@ const umkmData = [
         lng: 110.43806539334629,
         description: "Menyediakan berbagai kebutuhan material konstruksi dan renovasi, mulai dari semen, pasir, batu bata, besi, cat, hingga peralatan pertukangan",
         hours: "08.00 - 17.00",
-        photo: "file/tb.png"
+        photo: "File/tb.png"
     },
     {
         id: 14,
@@ -180,7 +180,7 @@ const umkmData = [
         lng: 110.43931596649006,
         description: "Bengkel spesialis kopling dan transmisi yang melayani perbaikan, servis, dan penggantian komponen kopling untuk berbagai jenis kendaraan, terutama mobil manual",
         hours: "09.00 - 17.00",
-        photo: "file/hr.png"
+        photo: "File/hr.png"
     },
     {
         id: 15,
@@ -193,7 +193,7 @@ const umkmData = [
         lng: 110.4397471315938,
         description: "Konter serba ada yang menyediakan layanan isi ulang pulsa, paket data, voucher game, token listrik, dan pembayaran digital lainnya. ",
         hours: "08.00 - 22.00",
-        photo: "file/pj.jpeg"
+        photo: "File/pj.jpeg"
     }
 ];
 
